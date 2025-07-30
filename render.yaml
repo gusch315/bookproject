@@ -17,4 +17,4 @@ services:
           name: mysitedb
           property: connectionString
       - key: WEB_CONCURRENCY
-        value: 4
+        value: "4"
