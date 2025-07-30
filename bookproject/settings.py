@@ -1,4 +1,5 @@
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,7 +72,16 @@ DATABASES = {
     }
 }
 
+if not DEBUG:
+    DATABASES = {
+        'default':dj_database_url.config(
+            # Replace this value with your local database's connection string.
+            default='postgresql://postgres:postgres@localhost:5432/bookproject',
+            conn_max_age=600
+        )
+    }
 
+ALLOWED_HOSTS = [*]
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
